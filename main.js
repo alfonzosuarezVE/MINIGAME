@@ -95,14 +95,24 @@ function ike_fuera_mapa(){
          xMin = 50;
          yMax = 700;
       }else{// caso en que este en el puente
+         yMin = 0;
           xMax =  950;
           yMax = 1200;
           xMin = 840;
       }
+      // caso en que no se la verdad ;-;
       if(x >= 840 && x <= 940 && y == 690){
-       xMax =  950;
-       yMax = 1200;
-       xMin = 840;
+         yMin = 0;
+         xMax =  950;
+         yMax = 1200;
+         xMin = 840;
+      }
+      // para que no atraviese la parte frontal de la casa
+      if(x <= 1090 && y < 650&& y > 50 && x > 390){
+         yMin = 600;
+         
+      }else if (y <= 40 && x < 1240 && x > 215){
+         yMax = 41;
       }
    }else{
       xMin = 62;
@@ -119,4 +129,7 @@ function comprobarSalir(){
          y = 740;
       }
    }
+}
+function cerca_arbol(){
+   
 }
