@@ -43,10 +43,10 @@ function moverike(key){
 function comprobar(caso){
    if(x > xMax || y > yMax || x < xMin || y < yMin){
       switch(caso){
-         case "derecha": x -= move * 1.5; break;
-         case "izquierda": x += move *  1.5; break;
-         case "abajo" : y += move * 1.5; break;
-         case "arriba": y -= move * 1.5; break;
+         case "derecha": x -= move * 2; break;
+         case "izquierda": x += move * 2; break;
+         case "abajo" : y += move * 2; break;
+         case "arriba": y -= move * 2; break;
       }
    }
 }
@@ -115,10 +115,16 @@ function ike_fuera_mapa(){
          yMax = 41;
       }
    }else{
-      xMin = 62;
-      xMax = 1700;
-      yMin = 0;
-      yMax = 1200;
+      // cuando uno este dentro de la casa
+      // primero hay que dividir las secciones y delimitar
+      //comedor:
+      yMax = 1150;
+      if(x >= 787 && x <= 1687 && y >= 875){
+         xMin = 677;
+         yMin = 840;
+      }
+      // en caso de que queramos entrar a el baño
+      // en proceso
    }
 }
 function comprobarSalir(){
@@ -129,7 +135,4 @@ function comprobarSalir(){
          y = 740;
       }
    }
-}
-function cerca_arbol(){
-   
 }
