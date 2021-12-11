@@ -115,6 +115,7 @@ function ike_fuera_mapa(){
          yMax = 41;
       }
    }else{
+      var bandera_baño = false;
       // cuando uno este dentro de la casa
       // primero hay que dividir las secciones y delimitar
       //comedor:
@@ -124,7 +125,15 @@ function ike_fuera_mapa(){
          yMin = 840;
       }
       // en caso de que queramos entrar a el baño
-      // en proceso
+      // ike puede entrar a el baño pero ya no puede salir, entonces mejor pondre puertas xD
+      if( x == 712 && y  == 950 || x == 712 && y == 1000 && !bandera_baño){
+         xMin = 100;
+         xMax = 462;
+         bandera_baño = true;
+      }else if(bandera_baño){
+         xMax = 1150;
+         xMin = 677;
+      }
    }
 }
 function comprobarSalir(){
