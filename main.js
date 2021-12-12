@@ -23,14 +23,34 @@ var flag_inside = false;
 interior.imagencita.addEventListener("load", () => {
    interior.load = true;
    dibujar();   
-})                  
+})            
+// para poder entrar a las habitaciones :)     
+var imagen_entrar = new imagen("entrar.png");
+imagen_entrar.imagencita.addEventListener("load", ()=>{
+   imagen_entrar.load = true;
+   dibujar();
+}) 
+document.addEventListener("click", (click) =>{
+   let clickX = click.x;
+   let clickY = click.y;
+   if(flag_inside){
+      if(clickX >= 812 && clickY >= 800 && clickX <= (812 + 148) && clickY <= (900 + 148) ){
+         x = 552;
+         xMax = 600;
+         xMin = 50;
+         flag_door = false;
+         dibujar();
+      }
+   }
+})
+var flag_door = false;
 function moverike(key){
    var tecla = key.keyCode;
    switch(tecla){
-      case 37: x -= move; comprobar("izquierda");ike_fuera_mapa(); dibujar(); break; // izquierda
-      case 39: x += move; comprobar("derecha"); dibujar();ike_fuera_mapa(); break; // derecha
-      case 38: y -= move; comprobar("abajo"); dibujar();ike_fuera_mapa(); break;//abajo
-      case 40: y += move; comprobar("arriba"); dibujar();ike_fuera_mapa(); break;//arriba
+      case 37: x -= move; comprobar("izquierda"); ike_fuera_mapa(); dibujar();ike_fuera_mapa(); break; // izquierda
+      case 39: x += move; comprobar("derecha"); ike_fuera_mapa(); dibujar();ike_fuera_mapa(); break; // derecha
+      case 38: y -= move; comprobar("abajo"); ike_fuera_mapa(); dibujar();ike_fuera_mapa(); break;//abajo
+      case 40: y += move; comprobar("arriba"); ike_fuera_mapa(); dibujar();ike_fuera_mapa(); break;//arriba
       case 13: if(!flag_inside){
          flag_inside = true;
          comprobarPuerta();
@@ -78,6 +98,9 @@ function dibujar(){
    if(flag_inside){ // si presionamos enter
       canvas.drawImage(interior.imagencita,0,0);
       canvas.drawImage(perro.imagencita, x,y);
+      if(flag_door){
+         canvas.drawImage(imagen_entrar.imagencita,x,y - 100);
+      }
    }else{ // si no hemos presionado enter
       xMax = 1350;
       yMax = 1200;
@@ -121,18 +144,13 @@ function ike_fuera_mapa(){
       //comedor:
       yMax = 1150;
       if(x >= 787 && x <= 1687 && y >= 875){
-         xMin = 677;
+         xMin = 800;
          yMin = 840;
       }
-      // en caso de que queramos entrar a el baño
-      // ike puede entrar a el baño pero ya no puede salir, entonces mejor pondre puertas xD
-      if( x == 712 && y  == 950 || x == 712 && y == 1000 && !bandera_baño){
-         xMin = 100;
-         xMax = 462;
-         bandera_baño = true;
-      }else if(bandera_baño){
-         xMax = 1150;
-         xMin = 677;
+      if(x == 812 && y == 1000){
+         flag_door = true;
+      }else{
+         flag_door = false;
       }
    }
 }
